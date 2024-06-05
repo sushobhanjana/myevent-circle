@@ -3,6 +3,7 @@ import QrScanner from "qr-scanner";
 import QrFrame from "./../../assets/qr-frame.svg";
 import "./qrscanner.css";
 
+
 const Scanner = ({handleClose,setSdata}) => {
   // QR States
   const scanner = useRef();
@@ -19,7 +20,8 @@ const Scanner = ({handleClose,setSdata}) => {
     console.log(result);
     // ✅ Handle success.
     // 😎 You can do whatever you want with the scanned result.
-    setSdata(result?.data);
+    // setSdata((prev)=>[...prev,result?.data]);
+    setSdata(result);
     handleClose()
   };
 
