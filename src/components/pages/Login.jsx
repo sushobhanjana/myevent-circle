@@ -17,18 +17,16 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { setSessionStorage } from "../../helpers/sessionStorage";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
 const defaultTheme = createTheme();
 
 export default function Login({ setIsAuthenticated }) {
-  const [invalidCredential,setInvalidCredential] = useState(null)
+  const [invalidCredential, setInvalidCredential] = useState(null);
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
+    name: Yup.string().required("Name is required"),
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
@@ -36,17 +34,17 @@ export default function Login({ setIsAuthenticated }) {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      name: "",
       password: "",
     },
     validationSchema,
     onSubmit: (values) => {
-      if (authenticateUser(values.email, values.password)) {
+      if (authenticateUser(values.name, values.password)) {
         setIsAuthenticated(true);
-        setSessionStorage("user", { email: values.email });
+        setSessionStorage("user", { name: values.name });
         navigate("/");
-      }else{
-        setInvalidCredential("Invalid Credential")
+      } else {
+        setInvalidCredential("Invalid Credential");
       }
     },
   });
@@ -76,21 +74,23 @@ export default function Login({ setIsAuthenticated }) {
             sx={{ mt: 1 }}
           >
             <TextField
+              variant="standard"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="Name"
+              label="Name"
+              name="name"
+              autoComplete="name"
               autoFocus
-              value={formik.values.email}
+              value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
             />
             <TextField
+              variant="standard"
               margin="normal"
               required
               fullWidth
@@ -105,32 +105,35 @@ export default function Login({ setIsAuthenticated }) {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              size="large"
             >
-              Sign In
+              Login
             </Button>
-            { invalidCredential && <Alert severity="error">{invalidCredential}</Alert>}
-            
-            {/* <Grid container>
+            {invalidCredential && (
+              <Alert severity="error">{invalidCredential}</Alert>
+            )}
+
+            <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
+              {/* <Grid item>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
-              </Grid>
-            </Grid> */}
+              </Grid> */}
+            </Grid>
           </Box>
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
