@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layouts from "../ui/layouts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard,faArrowRight,faBuilding } from "@fortawesome/free-solid-svg-icons";
 import auth from "../../services/authServices";
 import dashboard from "../../services/dashboard";
 import moment from "moment";
@@ -15,7 +15,6 @@ export default function Dashboard() {
     return `Today, ${formattedDate}`;
   };
   const { parkName, cityName, parkId } = auth.getCurrentUser();
-  // const [expected]
 
   const [expectedVisitors, setexpectedVisitors] = useState(0);
   const [checkedIn, setCheckedIn] = useState(0);
@@ -43,35 +42,44 @@ export default function Dashboard() {
 
   return (
     <Layouts>
-      <div className="w-full bg-white py-6 px-4 absolute top-20 ">
-        <h1 className="text-lg font-semibold">
-          <FontAwesomeIcon icon={faLocationDot} /> {parkName},{cityName}
-        </h1>
+      <div className="flex flex-col items-center justify-center md:w-[80%] md:mx-auto">
+        <div className="flex items-center justify-between bg-white w-full m-2">
+          <p className="p-4">{currentDate()}</p>
+          <button className="text-blue-500 hover:text-blue-700 p-2">
+            Refresh
+          </button>
+        </div>
       </div>
-      <div className="flex items-center justify-between bg-white w-full absolute top-40">
-        <p className="p-4">{currentDate()}</p>
-        <button className="text-blue-500 hover:text-blue-700 p-2">
-          Refresh
-        </button>
+      <div className="min-h-80 flex flex-col md:w-[30%] md:mx-auto bg-gray-100 rounded-md">
+          <div className="flex justify-between p-4 m-2">
+            <p className="text-xl font-semibold text-zinc-600">Expected visitors</p>
+            <span className="text-3xl font-semibold">{expectedVisitors}</span>
+          </div>
+          <div className="min-h-80  bg-white m-2 rounded-lg relative shadow">
+            <div className="flex justify-between shadow">
+              <p className="text-xl font-semibold p-4 text-zinc-600">Checked in</p>
+              <span className="p-4 text-3xl font-semibold">{checkedIn}</span>
+            </div>
+            <div className="w-full flex justify-around absolute top-20 mt-10">
+              <div className="flex flex-col items-start gap-4 text-5xl">
+              <FontAwesomeIcon icon={faAddressCard} className="text-4xl" />
+                <p className="text-lg font-semibold text-2xl">Checked Out</p>
+                <div className="w-full flex items-center justify-between">
+                  <span className="font-semibold text-5xl">{checkedOut}</span>
+                  <a href="" className="font-semibold text-xl"><FontAwesomeIcon icon={faArrowRight} className="text-blue-700" /></a>
+                </div>
+              </div>
+              <div className="flex flex-col items-start gap-4">
+              <FontAwesomeIcon icon={faBuilding} className="text-4xl" />
+                <p className="text-lg font-semibold text-2xl">Visitors in the primises</p>
+                <div className="w-full flex items-center justify-between">
+                  <span className="font-semibold text-5xl">{remainingInPremise}</span>
+                  <a href="" className="font-semibold text-xl"><FontAwesomeIcon icon={faArrowRight} className="text-blue-700" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
-      <main className="w-full max-w-md grid grid-cols-2 gap-4">
-        <div className="flex flex-col items-center justify-center bg-white p-4 rounded shadow">
-          <p className="text-sm text-gray-500">Expected Visitors</p>
-          <p className="text-2xl font-semibold">{expectedVisitors}</p>
-        </div>
-        <div className="flex flex-col items-center justify-center bg-white p-4 rounded shadow">
-          <p className="text-sm text-gray-500">Checked In</p>
-          <p className="text-2xl font-semibold">{checkedIn}</p>
-        </div>
-        <div className="flex flex-col items-center justify-center bg-white p-4 rounded shadow">
-          <p className="text-sm text-gray-500">Visitors in the premises</p>
-          <p className="text-2xl font-semibold">{remainingInPremise}</p>
-        </div>
-        <div className="flex flex-col items-center justify-center bg-white p-4 rounded shadow">
-          <p className="text-sm text-gray-500">Checked Out</p>
-          <p className="text-2xl font-semibold">{checkedOut}</p>
-        </div>
-      </main>
     </Layouts>
   );
 }
