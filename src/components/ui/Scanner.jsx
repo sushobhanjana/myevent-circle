@@ -79,8 +79,8 @@ const Scanner = ({handleClose,setSdata}) => {
           <img
             src={QrFrame}
             alt="Qr Frame"
-            width={125}
-            height={125}
+            width={256}
+            height={256}
             className="qr-frame"
           />
         </div>

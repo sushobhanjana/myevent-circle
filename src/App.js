@@ -5,13 +5,13 @@ import Login from "./components/pages/Login";
 import Dashboard from "./components/pages/Dashboard";
 import Qrscanner from "./components/pages/Qrscanner";
 import Logout from "./components/pages/Logout";
-import { getSessionStorage } from "./helpers/sessionStorage";
 import PublicRoute from "./helpers/PublicRouter";
+import auth from "./services/authServices";
+import Missingreports from "./components/pages/Missingreports";
+import Profile from "./components/pages/Profile";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    getSessionStorage("user")
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(auth.getCurrentUser());
 
   return (
     <Router>
@@ -20,6 +20,8 @@ function App() {
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/scanner" element={<Qrscanner />} />
+          <Route path="/missing-reports" element={<Missingreports />} />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/logout"
             element={<Logout setIsAuthenticated={setIsAuthenticated} />}

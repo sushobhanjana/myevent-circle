@@ -1,8 +1,6 @@
-import React from "react";
-import { removeSessionStorage } from "../../helpers/sessionStorage";
-
+import auth from "../../services/authServices";
 function Logout({ setIsAuthenticated }) {
-  removeSessionStorage('user')
+  auth.logout();
   setIsAuthenticated(false);
   return null;
 }

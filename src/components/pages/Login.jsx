@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import { authenticateUser } from "../../helpers/Authentication";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { setSessionStorage } from "../../helpers/sessionStorage";
+import auth from "../../services/authServices";
 
 import LoginLogo from "../../assets/login_logo.png";
-import EyeIcon from "../../assets/eye.svg";
 
 export default function Login({ setIsAuthenticated }) {
   const [invalidCredential, setInvalidCredential] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const validationSchema = Yup.object({
@@ -30,13 +35,21 @@ export default function Login({ setIsAuthenticated }) {
       password: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      if (authenticateUser(values.name, values.password)) {
-        setIsAuthenticated(true);
-        setSessionStorage("user", { name: values.name });
-        navigate("/");
-      } else {
-        setInvalidCredential("Invalid Credential");
+    onSubmit: async (values) => {
+      try {
+        const user = {
+          securityName: values.name,
+          password: values.password,
+        }
+        const {data} = await auth.login(user)
+        if (data.isValid && !data.errorMsg) {
+          setIsAuthenticated(true);
+          navigate("/");
+        } else {
+          setInvalidCredential("Invalid Credential");
+        }
+      } catch (error) {
+        console.log(error)
       }
     },
   });
@@ -47,75 +60,64 @@ export default function Login({ setIsAuthenticated }) {
         <div className="flex justify-center mb-8">
           <img src={LoginLogo} alt="CapitaStar @work" className="h-15" />
         </div>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                formik.touched.name && formik.errors.name ? "border-red-500" : ""
-              }`}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-            />
-            {formik.touched.name && formik.errors.name ? (
-              <p className="text-red-500 text-xs italic">
-                {formik.errors.name}
-              </p>
-            ) : null}
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  formik.touched.password && formik.errors.password
-                    ? "border-red-500"
-                    : ""
-                }`}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                autoComplete="current-password"
-              />
-              {formik.touched.password && formik.errors.password ? (
-              <p className="text-red-500 text-xs italic">
-                {formik.errors.password}
-              </p>
-            ) : null}
-              <button
-                type="button"
-                className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600"
-                onClick={togglePasswordVisibility}
-              >
-                <svg className="h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M10 2C5.58 2 1.73 4.11 0 7.5 1.73 10.89 5.58 13 10 13s8.27-2.11 10-5.5C18.27 4.11 14.42 2 10 2zm0 9a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zM10 3.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" />
-                </svg>
-              </button>
-            </div>
-          </div>
+        <Box
+          component="form"
+          onSubmit={formik.handleSubmit}
+          sx={{
+            "& > :not(style)": { m: 1, width: "100%" },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            variant="standard"
+            margin="normal"
+            required
+            fullWidth
+            id="Name"
+            label="Name"
+            name="name"
+            autoComplete="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            // onBlur={formik.handleBlur}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+            autoFocus
+          />
+          <TextField
+            variant="standard"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            label="Password"
+            name="password"
+            type={showPassword ? "text" : "password"}
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
           {invalidCredential && (
-            <div className="mb-4 text-red-500 text-center">{invalidCredential}</div>
+            <Alert severity="error">{invalidCredential}</Alert>
           )}
+
           <div className="flex items-center justify-center mb-4">
             <a
               href="#"
@@ -132,7 +134,7 @@ export default function Login({ setIsAuthenticated }) {
               Login
             </button>
           </div>
-        </form>
+        </Box>
       </div>
     </div>
   );
