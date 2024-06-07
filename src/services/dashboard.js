@@ -1,15 +1,10 @@
 // import jwt_decode from "jwt-decode";
 import http from "./httpServices";
-import {
-  setSessionStorage,
-  removeSessionStorage,
-  getSessionStorage,
-} from "../helpers/sessionStorage";
 import auth from "./authServices";
 
-const _token = auth.getToken()
 
 async function getVisitorsDetails(parkId) {
+  const _token = auth.getToken()
   const data = await http.get(
     `/SecurityGuard/SecurityGuard/GetVisitorsCountDetails?parkid=${parkId}`,{
         headers: {

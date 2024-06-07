@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Alert from "@mui/material/Alert";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import auth from "../../services/authServices";
@@ -40,8 +40,8 @@ export default function Login({ setIsAuthenticated }) {
         const user = {
           securityName: values.name,
           password: values.password,
-        }
-        const {data} = await auth.login(user)
+        };
+        const { data } = await auth.login(user);
         if (data.isValid && !data.errorMsg) {
           setIsAuthenticated(true);
           navigate("/");
@@ -49,7 +49,7 @@ export default function Login({ setIsAuthenticated }) {
           setInvalidCredential("Invalid Credential");
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
   });
@@ -119,12 +119,12 @@ export default function Login({ setIsAuthenticated }) {
           )}
 
           <div className="flex items-center justify-center mb-4">
-            <a
-              href="#"
+            <Link
+              to="/"
               className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
           <div className="flex items-center justify-center">
             <button

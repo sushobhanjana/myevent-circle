@@ -1,12 +1,11 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import applogo from "../../assets/app_logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser,faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import auth from "../../services/authServices";
 
 function Navbar() {
-  const navigate = useNavigate();
   const { parkName, cityName } = auth.getCurrentUser();
 
   return (
@@ -24,9 +23,9 @@ function Navbar() {
             </Link>
           </nav>
         </div>
-      <div className="w-full bg-white py-6 px-4 md:w-[80%] md:mx-auto">
+        <div className="w-full bg-white py-6 px-4 md:w-[80%] md:mx-auto">
           <h1 className="text-lg font-semibold">
-            <FontAwesomeIcon icon={faLocationDot} /> {parkName},{cityName} 
+            <FontAwesomeIcon icon={faLocationDot} /> {parkName},{cityName}
           </h1>
         </div>
       </header>

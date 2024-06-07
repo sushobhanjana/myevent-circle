@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Layouts from "../ui/layouts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressCard,faArrowRight,faBuilding } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +8,6 @@ import dashboard from "../../services/dashboard";
 import moment from "moment";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
   const currentDate = () => {
     const today = moment();
     const formattedDate = today.format("DD MMM YYYY");
@@ -38,7 +37,7 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, []);
+  }, [parkId]);
 
   return (
     <Layouts>
@@ -66,7 +65,7 @@ export default function Dashboard() {
                 <p className="text-lg font-semibold text-2xl">Checked Out</p>
                 <div className="w-full flex items-center justify-between">
                   <span className="font-semibold text-5xl">{checkedOut}</span>
-                  <a href="" className="font-semibold text-xl"><FontAwesomeIcon icon={faArrowRight} className="text-blue-700" /></a>
+                  <Link to="/" className="font-semibold text-xl"><FontAwesomeIcon icon={faArrowRight} className="text-blue-700" /></Link>
                 </div>
               </div>
               <div className="flex flex-col items-start gap-4">
@@ -74,7 +73,7 @@ export default function Dashboard() {
                 <p className="text-lg font-semibold text-2xl">Visitors in the primises</p>
                 <div className="w-full flex items-center justify-between">
                   <span className="font-semibold text-5xl">{remainingInPremise}</span>
-                  <a href="" className="font-semibold text-xl"><FontAwesomeIcon icon={faArrowRight} className="text-blue-700" /></a>
+                  <Link to="/" className="font-semibold text-xl"><FontAwesomeIcon icon={faArrowRight} className="text-blue-700" /></Link>
                 </div>
               </div>
             </div>
