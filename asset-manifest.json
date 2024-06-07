@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/sushobhanjana/myevent-circle/static/css/main.dc7a5462.css",
-    "main.js": "/sushobhanjana/myevent-circle/static/js/main.0e7c5ab9.js",
-    "static/js/451.6945772a.chunk.js": "/sushobhanjana/myevent-circle/static/js/451.6945772a.chunk.js",
-    "static/js/453.a86c2dd5.chunk.js": "/sushobhanjana/myevent-circle/static/js/453.a86c2dd5.chunk.js",
-    "static/media/login_logo.png": "/sushobhanjana/myevent-circle/static/media/login_logo.3401fbffb53035f26821.png",
-    "static/media/background_skin.png": "/sushobhanjana/myevent-circle/static/media/background_skin.172523559a8f48f617b7.png",
-    "static/media/app_logo.png": "/sushobhanjana/myevent-circle/static/media/app_logo.d1c97948896e6c21da90.png",
-    "static/media/qr-frame.svg": "/sushobhanjana/myevent-circle/static/media/qr-frame.b85d57aa190dd4bfec8c3d66933ecfb8.svg",
-    "index.html": "/sushobhanjana/myevent-circle/index.html",
-    "main.dc7a5462.css.map": "/sushobhanjana/myevent-circle/static/css/main.dc7a5462.css.map",
-    "main.0e7c5ab9.js.map": "/sushobhanjana/myevent-circle/static/js/main.0e7c5ab9.js.map",
-    "451.6945772a.chunk.js.map": "/sushobhanjana/myevent-circle/static/js/451.6945772a.chunk.js.map",
-    "453.a86c2dd5.chunk.js.map": "/sushobhanjana/myevent-circle/static/js/453.a86c2dd5.chunk.js.map"
+    "main.css": "/myevent-circle/static/css/main.44a0dab7.css",
+    "main.js": "/myevent-circle/static/js/main.125e589e.js",
+    "static/js/451.6945772a.chunk.js": "/myevent-circle/static/js/451.6945772a.chunk.js",
+    "static/js/453.a86c2dd5.chunk.js": "/myevent-circle/static/js/453.a86c2dd5.chunk.js",
+    "static/media/login_logo.png": "/myevent-circle/static/media/login_logo.3401fbffb53035f26821.png",
+    "static/media/background_skin.png": "/myevent-circle/static/media/background_skin.172523559a8f48f617b7.png",
+    "static/media/app_logo.png": "/myevent-circle/static/media/app_logo.d1c97948896e6c21da90.png",
+    "static/media/qr-frame.svg": "/myevent-circle/static/media/qr-frame.b85d57aa190dd4bfec8c3d66933ecfb8.svg",
+    "index.html": "/myevent-circle/index.html",
+    "main.44a0dab7.css.map": "/myevent-circle/static/css/main.44a0dab7.css.map",
+    "main.125e589e.js.map": "/myevent-circle/static/js/main.125e589e.js.map",
+    "451.6945772a.chunk.js.map": "/myevent-circle/static/js/451.6945772a.chunk.js.map",
+    "453.a86c2dd5.chunk.js.map": "/myevent-circle/static/js/453.a86c2dd5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc7a5462.css",
-    "static/js/main.0e7c5ab9.js"
+    "static/css/main.44a0dab7.css",
+    "static/js/main.125e589e.js"
   ]
 }
