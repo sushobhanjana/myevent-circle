@@ -12,9 +12,9 @@ import Profile from "./components/pages/Profile";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(auth.getCurrentUser());
-
+  const basename = process.env.REACT_APP_BASE_URL;
   return (
-    <Router>
+    <Router basename={basename}>
       <Routes>
         {/* protected routes */}
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
